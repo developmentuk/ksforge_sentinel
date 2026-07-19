@@ -4,11 +4,13 @@ import {
   forgeHealthSchema,
   giftCodeSchema,
   heroSummarySchema,
+  identityStatusSchema,
   registrationLinkSchema,
   type EventToday,
   type ForgeHealth,
   type GiftCode,
   type HeroSummary,
+  type IdentityStatus,
   type RegistrationLink
 } from './contracts.js';
 
@@ -49,6 +51,13 @@ export class ForgeApiClient {
       method: 'POST',
       body: JSON.stringify(input)
     });
+  }
+
+  getIdentityStatus(discordUserId: string): Promise<IdentityStatus> {
+    return this.request(
+      `/identity/status/${encodeURIComponent(discordUserId)}`,
+      identityStatusSchema
+    );
   }
 
   getHero(query: string): Promise<HeroSummary> {
